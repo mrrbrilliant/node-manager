@@ -1,0 +1,14 @@
+[package]
+name = "nodemgr"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = { version = "1.0.141", features=["derive"] }
+toml = "0.5.9"
+convert_case = "0.5.0"
+clap = { version="3.2.16", features=["cargo"] }
+strum_macros = "0.24"
+strum = { version = "0.24", features = ["derive"] }
