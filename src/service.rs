@@ -15,7 +15,9 @@ After=network.target
 Documentation=https://github.com/selendra/selendra
 
 [Service]
-ExecStart=/usr/bin/selendra --base-path {path} --chain testnet --port 30333 --rpc-port 9934 --ws-port 9944 --prometheus-port 9616 --rpc-methods Unsafe --rpc-cors all --pruning archive --validator --name "{name}" --bootnodes /ip4/157.245.56.213/tcp/30333/p2p/12D3KooWDLR899Spcx4xJ3U8cZttv9zjzJoey3HKaTZiNqwojZJB
+Type=simple
+ExecStart=/usr/bin/selendra --base-path {path} --chain testnet --port 30333 --rpc-port 9934 --ws-port 9944 --prometheus-port 9616 --rpc-methods Unsafe --rpc-cors all --pruning archive --validator --name "{name}" 
+ExecStop=fuser -k 30333/tcp 9934/tcp 9944/tcp 9616/tcp 
 Restart=always
 RestartSec=120
 
