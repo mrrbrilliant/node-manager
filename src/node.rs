@@ -1,6 +1,5 @@
 use convert_case::{Case, Casing};
 use serde::{Deserialize, Serialize};
-use std::str::FromStr;
 use strum_macros::EnumString;
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "snake_case")]

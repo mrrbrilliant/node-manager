@@ -2,6 +2,7 @@ pub mod binary;
 pub mod node;
 pub mod registry;
 pub mod service;
+pub mod download;
 
 use std::str::FromStr;
 
