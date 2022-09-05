@@ -5,17 +5,19 @@ use crate::download::{download_file, continue_file};
 pub fn download() {
     let version = get_latest();
     #[cfg(debug_assertions)]
-    let bin_path = ".";
+    let bin_path = "./selendra";
     #[cfg(not(debug_assertions))]
-    let bin_path = "/usr/bin";
+    let bin_path = "/usr/bin/selendra";
 
     println!("Downloading Selendra version: {}", version);
 
 
     match download_file(format!("https://github.com/selendra/selendra/releases/download/{version}/selendra", version = version).as_ref(), continue_file(bin_path)) {
-        Ok(_) => (),
+        Ok(_) => {},
         Err(t) => println!("Error: {}", t),
     };
+
+    Command::new("chmod").args(&["+x", bin_path]).output().expect("Failed to change selendra permission");
 }
 
 // git ls-remote --refs --sort="-version:refname" --symref  --tags https://github.com/paritytech/polkadot.git
