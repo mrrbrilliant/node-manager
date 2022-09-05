@@ -5,9 +5,9 @@ use crate::download::{download_file, continue_file};
 pub fn download() {
     let version = get_latest();
     #[cfg(debug_assertions)]
-    let bin_path = ".";
+    let bin_path = "./selendra";
     #[cfg(not(debug_assertions))]
-    let bin_path = "/usr/bin";
+    let bin_path = "/usr/bin/selendra";
 
     println!("Downloading Selendra version: {}", version);
 
