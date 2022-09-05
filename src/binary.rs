@@ -1,5 +1,6 @@
 use std::path::Path;
 use std::process::{Command, Stdio};
+use crate::download::{download_file, continue_file};
 
 pub fn download() {
     let version = get_latest();
@@ -9,26 +10,12 @@ pub fn download() {
     let bin_path = "/usr/bin";
 
     println!("Downloading Selendra version: {}", version);
-    let commands = format!(
-        r#"#!bin/bash
-sudo wget https://github.com/selendra/selendra/releases/download/{version}/selendra -P {bin_path} -q --show-progress --progress=bar:force:noscroll &&
-sudo chmod +x {bin_path}/selendra
-"#,
-        version = version,
-        bin_path = bin_path
-    );
-    let mut cmd = Command::new("sh")
-        .args(&vec!["-e", "-c", commands.as_ref()])
-        .stdout(Stdio::inherit())
-        .stderr(Stdio::inherit())
-        .spawn()
-        .unwrap();
 
-    let status = cmd.wait();
 
-    if let Err(error) = status {
-        println!("{}", error.kind().to_string())
-    }
+    match download_file(format!("https://github.com/selendra/selendra/releases/download/{version}/selendra", version = version).as_ref(), continue_file(bin_path)) {
+        Ok(_) => (),
+        Err(t) => println!("Error: {}", t),
+    };
 }
 
 // git ls-remote --refs --sort="-version:refname" --symref  --tags https://github.com/paritytech/polkadot.git
