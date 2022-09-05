@@ -13,9 +13,11 @@ pub fn download() {
 
 
     match download_file(format!("https://github.com/selendra/selendra/releases/download/{version}/selendra", version = version).as_ref(), continue_file(bin_path)) {
-        Ok(_) => (),
+        Ok(_) => {},
         Err(t) => println!("Error: {}", t),
     };
+
+    Command::new("chmod").args(&["+x", bin_path]).output().expect("Failed to change selendra permission");
 }
 
 // git ls-remote --refs --sort="-version:refname" --symref  --tags https://github.com/paritytech/polkadot.git

@@ -115,7 +115,7 @@ WantedBy=multi-user.target
         cmd.wait().unwrap();
 
         let mut rem = Command::new("sudo")
-            .args(&vec!["rm", "-rf", "--now", &self.service_file()])
+            .args(&vec!["rm", "-rf", &self.service_file()])
             .stdin(Stdio::inherit())
             .stdout(Stdio::inherit())
             .stderr(Stdio::inherit())
